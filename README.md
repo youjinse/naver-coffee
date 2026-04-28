@@ -34,13 +34,45 @@ npm run apply:headed
 
 ## 매주 월요일 자동 실행
 
-macOS `launchd`에 매주 월요일 09:00 실행 작업을 등록합니다.
+자동 신청 시간은 모두 **매주 월요일 오전 8시(로컬 타임존)** 기준입니다.
+
+### macOS (launchd)
 
 ```bash
 npm run launchd:install
 ```
 
-로그는 `logs/launchd.out.log`, `logs/launchd.err.log`에 저장됩니다.
+로그는 `logs/launchd.out.log`, `logs/launchd.err.log`에 저장됩니다. 등록된 작업의 시간은 `scripts/install-launchd.sh` 안의 `Hour` 값으로 설정되어 있습니다.
+
+### Linux (cron)
+
+프로젝트 절대 경로를 실제 값으로 바꾼 뒤 `crontab -e`에 한 줄 추가합니다.
+
+```cron
+0 8 * * 1 cd /path/to/naver-coffee && /usr/bin/env npm run apply >> logs/cron.log 2>&1
+```
+
+처음 실행 전에 로그 디렉터리를 만들어 두면 좋습니다.
+
+```bash
+mkdir -p logs
+```
+
+### Windows (작업 스케줄러)
+
+1. 작업 스케줄러를 연 뒤 **작업 만들기**를 선택합니다.
+2. **일반**: 이름을 예를 들어 `NaverCoffeeApply`처럼 지정하고, **사용자가 로그온할 때만 실행 여부**는 환경에 맞게 선택합니다 (로그인한 세션으로만 브라우저가 필요하면 로그온 시).
+3. **트리거**: **새로 만들기** → **매주** → 요일에서 **월요일**만 선택 → 시작 시간 **오전 8:00:00**.
+4. **동작**: **새로 만들기** → **프로그램 시작**  
+   - **프로그램/스크립트**: 저장소 안의 배치 파일  
+     예: `C:\Users\내이름\projects\naver-coffee\scripts\run-apply.bat`  
+     (`run-apply.bat`은 프로젝트 루트에서 `npm run apply`를 실행하고 출력을 `logs\cron.log`에 붙입니다.)
+
+또는 **프로그램**: `npm`의 전체 경로(`where npm`으로 확인한 `npm.cmd`), **인수 추가**: `run apply`, **시작 위치**에 해당 프로젝트 폴더 경로를 넣어도 됩니다.
+
+로그 확인: 프로젝트 루트의 `logs\cron.log` (배치 사용 시).
+
+---
 
 ## 동작 방식
 

@@ -27,7 +27,7 @@ cat > "$PLIST_PATH" <<PLIST
     <key>Weekday</key>
     <integer>1</integer>
     <key>Hour</key>
-    <integer>9</integer>
+    <integer>8</integer>
     <key>Minute</key>
     <integer>0</integer>
   </dict>
@@ -44,4 +44,4 @@ launchctl unload "$PLIST_PATH" >/dev/null 2>&1 || true
 launchctl load "$PLIST_PATH"
 
 echo "launchd 등록 완료: $PLIST_PATH"
-echo "매주 월요일 09:00에 실행됩니다."
+echo "매주 월요일 08:00에 실행됩니다."
