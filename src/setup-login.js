@@ -15,7 +15,7 @@ const context = await chromium.launchPersistentContext(config.userDataDir, {
 });
 
 const page = context.pages()[0] ?? await context.newPage();
-await page.goto(config.eventUrl, { waitUntil: 'domcontentloaded' });
+await page.goto('https://nid.naver.com/nidlogin.login', { waitUntil: 'domcontentloaded' });
 
 console.log('브라우저에서 네이버 로그인을 완료하세요.');
 console.log(`세션 저장 위치: ${config.userDataDir}`);
