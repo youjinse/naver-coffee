@@ -1,0 +1,16 @@
+{
+  "name": "naver-coffee",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup-login": "node src/setup-login.js",
+    "apply": "node src/apply-cafe-benefit.js",
+    "apply:headed": "HEADLESS=false node src/apply-cafe-benefit.js",
+    "install-browser": "playwright install chromium",
+    "launchd:install": "bash scripts/install-launchd.sh"
+  },
+  "dependencies": {
+    "playwright": "latest"
+  }
+}

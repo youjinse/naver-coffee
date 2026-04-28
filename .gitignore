@@ -1,0 +1,5 @@
+node_modules/
+.env
+.playwright/
+screenshots/
+npm-debug.log*
