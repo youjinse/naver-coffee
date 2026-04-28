@@ -90,7 +90,7 @@ function isLoginPage(url) {
 async function saveScreenshot(page, screenshotDir, label) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
   const screenshotPath = path.join(screenshotDir, `${timestamp}-${label}.png`);
-  await page.screenshot({ path: screenshotPath, fullPage: true });
+  await page.screenshot({ path: screenshotPath, fullPage: false });
   return screenshotPath;
 }
 
